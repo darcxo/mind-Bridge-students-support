@@ -1,4 +1,9 @@
-# 🧠 MindBridge — Full Stack Mental Health App
+Project Name: MindBridge — Students Mental Health App
+Team name -- Tech Buggy's
+Team Leader name : Shiva Mishra
+Members : Shivi Tyagi
+        : Chhaya Sharama
+        : Adarsh Osaniya
 
 **Tech Stack:** Python · FastAPI · SQLite · HTML/CSS/JavaScript
 
