@@ -449,4 +449,4 @@ def health():
 
 # ── Run with: python app.py ───────────────────────────────────────────────────
 if __name__ == "__main__":
-    uvicorn.run("sum:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
