@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MindBridge — Mental Support for Students</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#08101A;--bg2:#0D1F30;--bg3:#112438;
+      --mint:#0AFFB2;--mintdim:#08C98A;--mintglow:rgba(10,255,178,0.12);
+      --red:#FF4D6D;--amber:#FFB830;--blue:#38BDF8;
+      --white:#35618a;--gray:#5A8AA0;--card-bdr:#1A3A55;
+      --font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--white);font-family:var(--font-body);overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events:none;opacity:0.35}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:rgba(8,16,26,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--card-bdr)}
+    .nav-logo{font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--mint);text-decoration:none;letter-spacing:-0.5px}
+    .nav-logo span{color:var(--white)}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{color:var(--gray);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s}
+    .nav-links a:hover{color:var(--mint)}
+    .nav-cta{background:var(--mint);color:var(--bg);padding:0.55rem 1.4rem;border-radius:50px;font-weight:700;font-size:0.9rem;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 0 20px rgba(10,255,178,0.3)}
+    .nav-cta:hover{transform:translateY(-2px);box-shadow:0 0 35px rgba(10,255,178,0.55)}
+
+    /* HERO */
+    .hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 5% 4rem;overflow:hidden}
+    .blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none}
+    .blob-1{width:500px;height:500px;background:radial-gradient(circle,rgba(10,255,178,0.14) 0%,transparent 70%);top:-100px;left:-100px;animation:blobdrift 12s ease-in-out infinite alternate}
+    .blob-2{width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.1) 0%,transparent 70%);bottom:0;right:-80px;animation:blobdrift 10s ease-in-out infinite alternate-reverse}
+    @keyframes blobdrift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.1)}}
+
+    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--mintglow);border:1px solid rgba(10,255,178,0.3);color:var(--mint);padding:0.4rem 1.1rem;border-radius:50px;font-size:0.8rem;font-weight:600;letter-spacing:0.5px;margin-bottom:2rem;animation:fadeup 0.6s ease both}
+    .badge-dot{width:7px;height:7px;background:var(--mint);border-radius:50%;animation:pulse 1.8s ease infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+
+    h1{font-family:var(--font-head);font-size:clamp(2.8rem,6vw,5rem);font-weight:800;line-height:1.1;letter-spacing:-2px;animation:fadeup 0.7s 0.1s ease both}
+    h1 .accent{color:var(--mint)}
+    .hero-sub{max-width:600px;margin:1.5rem auto 0;font-size:1.15rem;color:var(--gray);font-weight:300;line-height:1.75;animation:fadeup 0.7s 0.2s ease both}
+    .hero-actions{display:flex;gap:1rem;margin-top:2.5rem;justify-content:center;flex-wrap:wrap;animation:fadeup 0.7s 0.3s ease both}
+
+    .btn-primary{background:var(--mint);color:var(--bg);padding:0.9rem 2.2rem;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;border:none;cursor:pointer;box-shadow:0 0 30px rgba(10,255,178,0.35);transition:transform 0.2s,box-shadow 0.2s;display:inline-block}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(10,255,178,0.55)}
+    .btn-outline{background:transparent;color:var(--white);padding:0.9rem 2.2rem;border-radius:50px;font-weight:500;font-size:1rem;text-decoration:none;border:1px solid var(--card-bdr);transition:border-color 0.2s,color 0.2s;display:inline-block}
+    .btn-outline:hover{border-color:var(--mint);color:var(--mint)}
+
+    /* LIVE STATS from API */
+    .stats-strip{position:relative;z-index:1;display:flex;justify-content:center;flex-wrap:wrap;margin-top:4rem;animation:fadeup 0.7s 0.4s ease both}
+    .stat-item{padding:1.2rem 3rem;border-right:1px solid var(--card-bdr);text-align:center}
+    .stat-item:last-child{border-right:none}
+    .stat-num{font-family:var(--font-head);font-size:2.2rem;font-weight:800;color:var(--mint);display:block;transition:all 0.5s}
+    .stat-label{font-size:0.8rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px}
+
+    @keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+    /* SECTIONS */
+    section{position:relative;z-index:1;padding:6rem 5%}
+    .section-label{font-family:var(--font-head);font-size:0.78rem;font-weight:700;color:var(--mint);letter-spacing:3px;text-transform:uppercase;margin-bottom:0.8rem}
+    .section-title{font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.2;letter-spacing:-1px;margin-bottom:1rem}
+    .section-desc{color:var(--gray);max-width:520px;font-size:1rem;font-weight:300}
+
+    /* FEATURES */
+    .features{background:var(--bg2)}
+    .features-inner{max-width:1200px;margin:0 auto}
+    .features-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1.5rem}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .feature-card{background:var(--bg3);border:1px solid var(--card-bdr);border-radius:16px;padding:2rem;transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s}
+    .feature-card:hover{border-color:var(--mint);transform:translateY(-6px);box-shadow:0 20px 60px rgba(10,255,178,0.08)}
+    .feature-icon{width:52px;height:52px;background:var(--mintglow);border:1px solid rgba(10,255,178,0.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+    .feature-card h3{font-family:var(--font-head);font-size:1.1rem;font-weight:700;margin-bottom:0.6rem}
+    .feature-card p{font-size:0.92rem;color:var(--gray);line-height:1.65}
+
+    /* HOW IT WORKS */
+    .how{max-width:1100px;margin:0 auto}
+    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:3rem;position:relative}
+    .step{text-align:center;padding:2rem 1rem;position:relative}
+    .step-num{width:48px;height:48px;background:var(--mint);color:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:800;font-size:1.1rem;margin:0 auto 1.2rem;box-shadow:0 0 20px rgba(10,255,178,0.3)}
+    .step h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:0.5rem}
+    .step p{font-size:0.88rem;color:var(--gray)}
+    .step-arrow{position:absolute;top:3.2rem;right:-12px;color:var(--mintdim);font-size:1.2rem;z-index:2}
+    .step:last-child .step-arrow{display:none}
+
+    /* PRIVACY */
+    .privacy-strip{background:var(--mintglow);border-top:1px solid rgba(10,255,178,0.2);border-bottom:1px solid rgba(10,255,178,0.2);padding:2rem 5%;text-align:center;position:relative;z-index:1}
+    .privacy-items{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
+    .privacy-item{display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;font-weight:500;color:var(--mint)}
+
+    /* CTA */
+    .cta-section{text-align:center;max-width:700px;margin:0 auto}
+    .cta-section h2{font-family:var(--font-head);font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-1.5px;margin-bottom:1rem}
+    .cta-section p{color:var(--gray);margin-bottom:2.5rem}
+
+    /* FOOTER */
+    footer{position:relative;z-index:1;background:var(--bg2);border-top:1px solid var(--card-bdr);padding:2.5rem 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .footer-logo{font-family:var(--font-head);font-size:1.2rem;font-weight:800;color:var(--mint)}
+    footer p{font-size:0.85rem;color:var(--gray)}
+    .footer-note{font-size:0.78rem;color:var(--gray);max-width:400px;text-align:right}
+
+    @media(max-width:768px){.nav-links{display:none}.stat-item{padding:1rem 1.5rem}.step-arrow{display:none}.footer-note{text-align:left}}
+  </style>
+</head>
+<body>
+<nav>
+  <h1 style="font-size: xx-large;"><a href="/" class="nav-logo">Mind<span>Bridge</span></a></h1>
+  <ul class="nav-links">
+    <li><a href="/checkin.html">Check In</a></li>
+    <li><a href="/tracker.html">My Mood</a></li>
+    <li><a href="/chat.html">AI Chat</a></li>
+    <li><a href="/resources.html">Resources</a></li>
+    <li><a href="/community.html">Community</a></li>
+  </ul>
+  <a href="/checkin.html" class="nav-cta">Start Now</a>
+</nav>
+
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="hero-badge"><span class="badge-dot"></span>Available 24/7 · No Login · 100% Anonymous</div>
+  <h2 style="font-size:xxx-large;">You don't have to<br>face it <span class="accent">alone.</span></h2>
+  <p class="hero-sub">MindBridge is a free, anonymous mental health companion for college students. Check in daily, chat with AI support, and find real help — instantly.</p>
+  <div class="hero-actions">
+    <a href="/checkin.html" class="btn-primary">How are you feeling today?</a>
+    <a href="/chat.html" class="btn-outline">Talk to someone →</a>
+  </div>
+  <div class="stats-strip">
+    <div class="stat-item"><span class="stat-num" id="statCheckins">—</span><span class="stat-label">Check-ins Today</span></div>
+    <div class="stat-item"><span class="stat-num">1 in 4</span><span class="stat-label">Students Affected</span></div>
+    <div class="stat-item"><span class="stat-num">72%</span><span class="stat-label">Go Untreated</span></div>
+    <div class="stat-item"><span class="stat-num" id="statUsers">—</span><span class="stat-label">Students Helped</span></div>
+  </div>
+</section>
+
+<div class="privacy-strip">
+  <div class="privacy-items">
+    <div class="privacy-item"><i class="fas fa-lock"></i>No signup required</div>
+    <div class="privacy-item"><i class="fas fa-user-secret"></i>Fully anonymous</div>
+    <div class="privacy-item"><i class="fas fa-database"></i>Data stays private</div>
+    <div class="privacy-item"><i class="fas fa-heart"></i>Built for students</div>
+  </div>
+</div>
+
+<section class="features">
+  <div class="features-inner">
+    <div class="features-header">
+      <div><p class="section-label">What we offer</p><h2 class="section-title">Everything you need,<br>nothing you don't.</h2></div>
+      <p class="section-desc">No forms, no insurance, no appointments. Just open the page and start.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">📊</div><h3>Daily Mood Check-In</h3><p>Track how you feel every day in under 30 seconds. Spot patterns before they become problems.</p></div>
+      <div class="feature-card"><div class="feature-icon">🤖</div><h3>AI Chat Support</h3><p>Anonymous 24/7 conversational support. Listens, responds with empathy, and surfaces real help when needed.</p></div>
+      <div class="feature-card"><div class="feature-icon">📈</div><h3>Mood History & Trends</h3><p>Visual charts of your emotional journey. Understand your burnout patterns before they peak.</p></div>
+      <div class="feature-card"><div class="feature-icon">📍</div><h3>Real Resources</h3><p>Verified Indian helplines, NIMHANS, iCall, and campus counselor contacts — all in one place.</p></div>
+      <div class="feature-card"><div class="feature-icon">🤝</div><h3>Peer Community Board</h3><p>Post anonymous tips and encouragement. Read what fellow students have shared.</p></div>
+      <div class="feature-card"><div class="feature-icon">🚨</div><h3>Crisis Detection</h3><p>If you mention you're in crisis, MindBridge instantly surfaces emergency helpline numbers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="how">
+    <p class="section-label">Simple by design</p><h2 class="section-title">How it works</h2>
+    <div class="steps-grid">
+      <div class="step"><div class="step-num">1</div><h3>Open MindBridge</h3><p>No download. No signup. Works on any browser.</p><span class="step-arrow">→</span></div>
+      <div class="step"><div class="step-num">2</div><h3>Check In Daily</h3><p>Tap your mood emoji. Done in 20 seconds.</p><span class="step-arrow">→</span></div>
+      <div class="step"><div class="step-num">3</div><h3>Chat or Explore</h3><p>Talk to AI, browse resources, or join the community.</p><span class="step-arrow">→</span></div>
+      <div class="step"><div class="step-num">4</div><h3>Track Your Journey</h3><p>See your mood chart grow. Notice trends over time.</p><span class="step-arrow">→</span></div>
+      <div class="step"><div class="step-num">5</div><h3>Get Real Help</h3><p>MindBridge connects you to verified professionals when ready.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta-section">
+    <p class="section-label">Start today</p>
+    <h2>Your mental health<br><span style="color:var(--mint)">matters right now.</span></h2>
+    <p>You don't need a reason. You don't need a crisis. You just need to start.</p>
+    <div class="hero-actions">
+      <a href="/checkin.html" class="btn-primary">Check in today →</a>
+      <a href="/resources.html" class="btn-outline">Find help near me</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><div class="footer-logo">MindBridge</div><p style="margin-top:0.3rem">Open Innovation</p></div>
+  <br>
+  <p class="footer-note">Not a substitute for professional care. Crisis? Call iCall</p> 
+    <br>
+  <strong> you can call 14416 or 1800-891-4416 for the Tele-MANAS helpline, a free, 24/7</strong>
+</footer>
+
+<script src="/static/api.js"></script>
+<script>
+  // Load live stats from backend
+  async function loadStats() {
+    try {
+      const data = await MoodAPI.globalStats();
+      document.getElementById('statCheckins').textContent = data.total_checkins.toLocaleString();
+      document.getElementById('statUsers').textContent = data.total_users.toLocaleString();
+    } catch {
+      document.getElementById('statCheckins').textContent = '—';
+      document.getElementById('statUsers').textContent = '—';
+    }
+  }
+  loadStats();
+
+  // Animate cards on scroll
+  const cards = document.querySelectorAll('.feature-card, .step');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }, i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  cards.forEach(c => { c.style.opacity='0'; c.style.transform='translateY(20px)'; c.style.transition='opacity 0.5s ease,transform 0.5s ease,border-color 0.3s,box-shadow 0.3s'; obs.observe(c); });
+</script>
+</body>
+</html>
