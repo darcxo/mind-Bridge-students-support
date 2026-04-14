@@ -12,7 +12,7 @@ from database import get_db, init_db
 # ══════════════════════════════════════════════════════════════════════════════
 # GROQ CONFIG  
 # ══════════════════════════════════════════════════════════════════════════════
-GROQ_API_KEY = "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"    # 🔑 paste your gsk_... key here
+GROQ_API_KEY = "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"    # 🔑 paste your gsk_... key here
 GROQ_MODEL   = "groq/compound"            # free + very smart
 GROQ_URL     = "https://api.groq.com/openai/v1/chat/completions"
 
